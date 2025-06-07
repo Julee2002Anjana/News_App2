@@ -12,14 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.News_App"
         tools:targetApi="31">
+        <!-- SplashScreenActivity set as launcher -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- MainActivity no longer launcher -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
+            <!-- No intent filter here -->
         </activity>
     </application>
 
