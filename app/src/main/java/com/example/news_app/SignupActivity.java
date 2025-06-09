@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+
 import android.widget.EditText;
 import android.widget.ProgressBar;
+
+import android.widget.Button;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,16 +20,24 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity {
 
+
     private EditText usernameInput, emailInput, passwordInput, confirmPasswordInput;
     private MaterialButton signupButton;
     private TextView loginText;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
+    TextView loginText;
+    Button signupButton; // Referencing signup_button
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_signup);
+
+        setContentView(R.layout.activity_signup); // Make sure the layout has correct IDs
+
 
         // Initialize UI components
         usernameInput = findViewById(R.id.username);
@@ -34,6 +46,7 @@ public class SignupActivity extends AppCompatActivity {
         confirmPasswordInput = findViewById(R.id.confirm_password_input);
         signupButton = findViewById(R.id.signup_button); // ✅ Fixed reference
         loginText = findViewById(R.id.login_text);
+
         progressBar = findViewById(R.id.progress_bar);
         mAuth = FirebaseAuth.getInstance();
 
@@ -105,5 +118,28 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this, "Signup failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+
+        signupButton = findViewById(R.id.signup_button); // Make sure this ID exists in the layout
+
+        // Navigate to LoginActivity when "Login" text is clicked
+        loginText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // Navigate to NewsActivity when "Sign Up" button is clicked
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignupActivity.this, NewsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }

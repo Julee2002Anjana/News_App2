@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+
 import android.widget.EditText;
 import android.widget.ProgressBar;
+
+import android.widget.Button;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,16 +22,23 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class LoginActivity extends AppCompatActivity {
 
+
     private EditText emailInput, passwordInput;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private MaterialButton loginButton;
     private TextView signupText;
 
+    TextView signupText;
+    TextView loginText;
+    Button loginButton; // Added Button for login
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
@@ -54,6 +65,34 @@ public class LoginActivity extends AppCompatActivity {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
                 return;
+
+        // Initialize views
+        signupText = findViewById(R.id.signup_text);
+        loginText = findViewById(R.id.login_text);
+        loginButton = findViewById(R.id.login_button);
+
+        // Navigate to SignupActivity
+        signupText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            }
+        });
+
+        // Navigate to NewsActivity via TextView (optional)
+        loginText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, NewsActivity.class));
+            }
+        });
+
+        // Navigate to NewsActivity via Login Button
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, NewsActivity.class));
+
             }
 
             progressBar.setVisibility(View.VISIBLE);
