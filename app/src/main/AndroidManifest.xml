@@ -28,18 +28,12 @@
         <activity
 
             android:name=".LoginActivity"
-
-            android:name=".activity_login"
-
             android:exported="true" />
 
         <!-- Signup screen -->
         <activity
 
             android:name=".SignupActivity"
-
-            android:name=".activity_signup"
-
             android:exported="true" />
 
         <!-- Main screen -->
