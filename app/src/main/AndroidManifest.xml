@@ -33,10 +33,22 @@
         </activity> <!-- Login screen -->
         <activity
             android:name=".LoginActivity"
+
+            android:exported="true" />
+
+        <!-- Signup screen -->
+
             android:exported="true" /> <!-- Signup screen -->
+
         <activity
             android:name=".SignupActivity"
+
+            android:exported="true" />
+
+        <!-- Main screen -->
+
             android:exported="true" /> <!-- Main screen -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />
