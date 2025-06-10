@@ -13,6 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.News_App"
         tools:targetApi="31">
+
+
+        <activity android:name=".DetailActivity" android:exported="false" />
+        <activity android:name=".NewsActivity" android:exported="false" />
+
+        <!-- Splash screen is the launcher -->
+        <activity android:name=".SplashScreenActivity" android:exported="true">
+
         <activity
             android:name=".DeveloperActivity"
             android:exported="false" />
@@ -25,11 +33,14 @@
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
         </activity> <!-- Login screen -->
         <activity
             android:name=".LoginActivity"
@@ -54,4 +65,15 @@
             android:exported="true" />
     </application>
 
+
+        <!-- Login screen -->
+        <activity android:name=".LoginActivity" android:exported="true" />
+
+        <!-- Signup screen -->
+        <activity android:name=".SignupActivity" android:exported="true" />
+
+        <!-- Main screen -->
+        <activity android:name=".MainActivity" android:exported="true" />
+
+    </application>
 </manifest>

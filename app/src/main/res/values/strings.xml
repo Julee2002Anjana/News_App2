@@ -2,4 +2,7 @@
     <string name="app_name">News_App</string>
     <string name="splash_screen">Splash screen image</string>
     <string name="login_screen">Background image</string>
+    <string name="academic_icon_desc">Academic category icon</string>
+    <string name="sport_icon_desc">Sports category icon</string>
+    <string name="event_icon_desc">Events category icon</string>
 </resources>

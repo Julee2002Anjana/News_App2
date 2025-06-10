@@ -147,7 +147,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signup_button"
         android:layout_width="298dp"
@@ -158,6 +157,9 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
+
+        app:layout_constraintTop_toBottomOf="@id/confirm_password_input"
+
 
         app:layout_constraintTop_toBottomOf="@id/confirm_password_input"
 
