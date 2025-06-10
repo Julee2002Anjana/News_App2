@@ -3,6 +3,7 @@ package com.example.news_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NewsActivity extends AppCompatActivity {
@@ -19,29 +20,24 @@ public class NewsActivity extends AppCompatActivity {
         developerIcon = findViewById(R.id.developer_icon);
         rectangle = findViewById(R.id.rectangle);
 
-        // Developer icon click → open DeveloperActivity
-        developerIcon.setOnClickListener(v -> openDeveloperActivity());
+        // Developer icon click → open MainActivity
+        developerIcon.setOnClickListener(v -> openMainActivity());
 
         // User profile icon click → open MainActivity
         userProfileIcon.setOnClickListener(v -> openMainActivity());
 
         // Rectangle click → open DetailedNewsActivity
-        rectangle.setOnClickListener(v -> openDetailedNews("general"));
+        rectangle.setOnClickListener(v -> openDetailedNews("general")); // Pass category if needed
     }
 
     private void openDetailedNews(String category) {
         Intent intent = new Intent(NewsActivity.this, DetailedNewsActivity.class);
-        intent.putExtra("category", category);
+        intent.putExtra("category", category); // Pass category to next activity
         startActivity(intent);
     }
 
     private void openMainActivity() {
         Intent intent = new Intent(NewsActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void openDeveloperActivity() {
-        Intent intent = new Intent(NewsActivity.this, DeveloperActivity.class);
         startActivity(intent);
     }
 }
