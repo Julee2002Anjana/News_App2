@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+
 import android.widget.SearchView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -15,6 +16,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -51,11 +55,17 @@ public class NewsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        // Developer icon click → open DeveloperActivity
+        developerIcon.setOnClickListener(v -> openDeveloperActivity());
+
+
         // Load default category
         loadNewsByCategory("Academic");
+
 
         acadBtn.setOnClickListener(v -> loadNewsByCategory("Academic"));
         sportBtn.setOnClickListener(v -> loadNewsByCategory("Sport"));
@@ -108,6 +118,16 @@ public class NewsActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e -> Log.e("FirestoreError", "Error fetching news", e));
+
+        // Rectangle click → open DetailedNewsActivity
+        rectangle.setOnClickListener(v -> openDetailedNews("general"));
+    }
+
+    private void openDetailedNews(String category) {
+        Intent intent = new Intent(NewsActivity.this, DetailedNewsActivity.class);
+        intent.putExtra("category", category);
+        startActivity(intent);
+
     }
 
     private void filterNews(String query) {
@@ -118,5 +138,10 @@ public class NewsActivity extends AppCompatActivity {
             }
         }
         adapter.updateList(filtered);
+    }
+
+    private void openDeveloperActivity() {
+        Intent intent = new Intent(NewsActivity.this, DeveloperActivity.class);
+        startActivity(intent);
     }
 }
