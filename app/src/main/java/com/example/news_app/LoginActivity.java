@@ -2,50 +2,83 @@ package com.example.news_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+
 public class LoginActivity extends AppCompatActivity {
 
-    TextView signupText;
-    TextView loginText;
-    Button loginButton; // Added Button for login
+    private EditText emailInput, passwordInput;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private MaterialButton loginButton;
+    private TextView signupText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize views
-        signupText = findViewById(R.id.signup_text);
-        loginText = findViewById(R.id.login_text);
+        emailInput = findViewById(R.id.email_input);
+        passwordInput = findViewById(R.id.password_input);
+        progressBar = findViewById(R.id.prograsssbar);
         loginButton = findViewById(R.id.login_button);
+        signupText = findViewById(R.id.signup_text);
+        mAuth = FirebaseAuth.getInstance();
 
-        // Navigate to SignupActivity
-        signupText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-            }
+        // Move to SignupActivity
+        signupText.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            finish();
         });
 
-        // Navigate to NewsActivity via TextView (optional)
-        loginText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, NewsActivity.class));
-            }
-        });
+        loginButton.setOnClickListener(v -> {
+            String email = emailInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
 
-        // Navigate to NewsActivity via Login Button
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, NewsActivity.class));
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            progressBar.setVisibility(View.VISIBLE);
+            loginButton.setEnabled(false);
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        progressBar.setVisibility(View.GONE);
+                        loginButton.setEnabled(true);
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, NewsActivity.class));
+                            finish();
+                        } else {
+                            Exception e = task.getException();
+                            if (e instanceof FirebaseAuthInvalidUserException) {
+                                Toast.makeText(this, "No account found. Please sign up.", Toast.LENGTH_LONG).show();
+                            } else if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                Toast.makeText(this, "Invalid password or email", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(this, "Login failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
         });
     }
 }
