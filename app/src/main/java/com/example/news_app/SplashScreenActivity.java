@@ -12,10 +12,18 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Delayed navigation to Login screen
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+
+            Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+
+
+
+
+
             startActivity(intent);
             finish();
         }, 3000); // 3 seconds delay
     }
 }
+
