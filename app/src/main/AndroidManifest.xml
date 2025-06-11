@@ -22,9 +22,6 @@
         <activity android:name=".SplashScreenActivity" android:exported="true">
 
         <activity
-            android:name=".DeveloperActivity"
-            android:exported="false" />
-        <activity
             android:name=".DetailedNewsActivity"
             android:exported="false" />
         <activity
@@ -44,22 +41,10 @@
         </activity> <!-- Login screen -->
         <activity
             android:name=".LoginActivity"
-
-            android:exported="true" />
-
-        <!-- Signup screen -->
-
             android:exported="true" /> <!-- Signup screen -->
-
         <activity
             android:name=".SignupActivity"
-
-            android:exported="true" />
-
-        <!-- Main screen -->
-
             android:exported="true" /> <!-- Main screen -->
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />
